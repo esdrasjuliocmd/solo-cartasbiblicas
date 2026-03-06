@@ -841,9 +841,101 @@
       .start-field{ padding: 14px 12px; }
       .start-btn{ min-height: 48px; padding: 14px; }
     }
+
+    /* ========================================================
+       🎮 MELHORIAS ANIMADAS - TELA INICIAL (estilo divertido)
+       ======================================================== */
+
+    /* Partículas flutuantes no fundo */
+    .bg-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: floatParticle linear infinite;
+    }
+    @keyframes floatParticle {
+      0%   { opacity: 0;   transform: translateY(105vh) scale(0.5) rotate(0deg); }
+      10%  { opacity: 0.9; }
+      85%  { opacity: 0.5; }
+      100% { opacity: 0;   transform: translateY(-10vh) scale(1.3) rotate(360deg); }
+    }
+
+    /* Container acima das partículas */
+    .container { position: relative; z-index: 1; }
+
+    /* Título com gradiente dourado animado */
+    #tela-inicial .header h1 {
+      background: linear-gradient(90deg, #FFD700 0%, #FF8C00 40%, #FFD700 80%, #FF8C00 100%);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleShine 3s linear infinite;
+      filter: drop-shadow(0 2px 8px rgba(255, 190, 0, 0.4));
+      font-size: 2rem;
+    }
+    @keyframes titleShine {
+      0%   { background-position: 0%   center; }
+      100% { background-position: 250% center; }
+    }
+
+    /* Caixa de dica flutuando suavemente */
+    .start-tip {
+      animation: tipFloat 3.5s ease-in-out infinite;
+    }
+    @keyframes tipFloat {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-5px); }
+    }
+
+    /* Hover nos botões de categoria - efeito de elevação */
+    .cat-btn:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 22px 36px rgba(0, 0, 0, 0.2);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    /* Categoria selecionada - pulso verde brilhante */
+    .cat-btn.is-on {
+      animation: catGlow 1.8s ease-in-out infinite;
+    }
+    @keyframes catGlow {
+      0%, 100% { box-shadow: 0 14px 22px rgba(0,0,0,0.18); }
+      50%       { box-shadow: 0 20px 34px rgba(0,0,0,0.22), 0 0 26px rgba(57, 181, 74, 0.6); }
+    }
+
+    /* Botão "Iniciar Jogo" com glow laranja pulsante */
+    .start-btn.btn-primary {
+      background: linear-gradient(135deg, #FF6B35 0%, #E63900 100%);
+      box-shadow: 0 8px 24px rgba(230, 57, 0, 0.45);
+      animation: startPulse 2.2s ease-in-out infinite;
+      font-size: 1.15rem;
+      letter-spacing: 0.4px;
+    }
+    @keyframes startPulse {
+      0%, 100% { box-shadow: 0 8px 24px rgba(230,57,0,0.45); transform: scale(1); }
+      50%       { box-shadow: 0 16px 40px rgba(230,57,0,0.72); transform: scale(1.02); }
+    }
+    .start-btn.btn-primary:active { transform: scale(0.97) !important; animation: none; }
+
+    /* Campo de nome com brilho dourado ao focar */
+    #nome-jogador:focus {
+      outline: none;
+      border-color: var(--jw-dourado);
+      box-shadow: 0 0 0 4px rgba(242, 183, 5, 0.32);
+      transition: box-shadow 0.25s ease, border-color 0.25s ease;
+    }
   </style>
 </head>
 <body>
+  <div class="bg-particles" id="bg-particles"></div>
   <div class="container">
     <div class="card" id="tela-inicial">
       <div class="header">
@@ -1011,6 +1103,26 @@
     };
 
     AudioSystem.init();
+
+    // ── Partículas flutuantes animadas no fundo ──
+    (function criarParticulas() {
+      const container = document.getElementById('bg-particles');
+      if (!container) return;
+      const cores = ['#FFD700','#FFA500','#FFFFFF','#5F86BD','#FF6B35','#FFB300'];
+      const tamanhos = [6, 8, 10, 12, 14];
+      const total = 22;
+      for (let i = 0; i < total; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const cor = cores[Math.floor(Math.random() * cores.length)];
+        const tam = tamanhos[Math.floor(Math.random() * tamanhos.length)];
+        const dur = (5 + Math.random() * 9).toFixed(1) + 's';
+        const delay = -(Math.random() * 10).toFixed(1) + 's'; // negativo = já em andamento
+        const left = (Math.random() * 100).toFixed(1) + '%';
+        p.style.cssText = `width:${tam}px;height:${tam}px;background:${cor};left:${left};animation-duration:${dur};animation-delay:${delay};opacity:0;`;
+        container.appendChild(p);
+      }
+    })();
 
     function mostrarPontosAnimados(pontos, isBonus = false) {
       const elemento = document.createElement('div');
