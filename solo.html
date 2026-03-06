@@ -932,6 +932,153 @@
       box-shadow: 0 0 0 4px rgba(242, 183, 5, 0.32);
       transition: box-shadow 0.25s ease, border-color 0.25s ease;
     }
+
+    /* ========================================================
+       🎮 MELHORIAS TELAS DE JOGO E RESULTADO (animado/divertido)
+       ======================================================== */
+
+    /* 1. Timer — pulso suave permanente */
+    .timer {
+      animation: timerTick 1.5s ease-in-out infinite;
+      border-radius: 8px;
+      padding: 2px 6px;
+    }
+    @keyframes timerTick {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.07); }
+    }
+
+    /* Urgência quando ≤ 10 segundos (classe adicionada via JS) */
+    .timer-urgente {
+      animation: timerUrge 0.55s ease-in-out infinite !important;
+      background: rgba(217, 83, 79, 0.12);
+    }
+    @keyframes timerUrge {
+      0%, 100% { transform: scale(1);    text-shadow: 0 0 8px  rgba(217,83,79,0.5); }
+      50%       { transform: scale(1.14); text-shadow: 0 0 22px rgba(217,83,79,0.9); }
+    }
+
+    /* 2. Dicas — borda que alterna entre azul e dourado */
+    .dicas {
+      animation: dicasBorder 4s ease-in-out infinite;
+    }
+    @keyframes dicasBorder {
+      0%, 100% { border-color: var(--jw-azul-principal); box-shadow: 0 4px 15px rgba(74,109,167,0.2); }
+      50%       { border-color: var(--jw-dourado);        box-shadow: 0 8px 24px rgba(242,183,5,0.28); }
+    }
+
+    /* 3. Botões de resposta — hover com elevação */
+    .opcao:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 8px 20px rgba(46, 91, 147, 0.25);
+      border-color: var(--jw-azul-claro);
+      transition: all 0.15s ease;
+    }
+    .opcao.correta {
+      box-shadow: 0 0 26px rgba(92, 184, 92, 0.65);
+      animation: correctPop 0.6s ease-out forwards;
+    }
+    @keyframes correctPop {
+      0%   { transform: scale(1); }
+      40%  { transform: scale(1.07); }
+      70%  { transform: scale(0.97); }
+      100% { transform: scale(1); }
+    }
+    .opcao.errada {
+      box-shadow: 0 0 20px rgba(217, 83, 79, 0.55);
+      animation: shake 0.6s ease-out;
+    }
+
+    /* 4. Stats — shimmer brilhante no box de Pontos */
+    .stat-box:first-child {
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-box:first-child::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -80%;
+      width: 50%;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+      animation: shimmerPass 3s linear infinite;
+    }
+    @keyframes shimmerPass {
+      0%   { left: -80%; }
+      100% { left: 130%; }
+    }
+
+    /* 5. Streak — pulso de fogo */
+    .streak-indicator {
+      animation: firePulse 0.9s ease-in-out infinite !important;
+    }
+    @keyframes firePulse {
+      0%, 100% { box-shadow: 0 4px 12px rgba(255,107,107,0.40); transform: scale(1); }
+      50%       { box-shadow: 0 8px 26px rgba(255,107,107,0.75); transform: scale(1.04); }
+    }
+
+    /* 6. Feedback com borda lateral colorida */
+    .feedback { font-size: 0.95rem; }
+    .feedback.correto { border-left: 5px solid var(--jw-verde-sucesso); padding-left: 14px; }
+    .feedback.errado  { border-left: 5px solid var(--jw-vermelho-erro);  padding-left: 14px; }
+
+    /* ── TELA DE RESULTADO ── */
+
+    /* 7. Título "Finalizado!" com gradiente dourado */
+    #tela-resultado .header h1 {
+      background: linear-gradient(90deg, #FFD700 0%, #FF8C00 40%, #FFD700 80%, #FF8C00 100%);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titleShine 3s linear infinite;
+      filter: drop-shadow(0 2px 8px rgba(255,190,0,0.4));
+    }
+
+    /* 8. Pontuação final com glow dourado */
+    .pontuacao-final {
+      font-size: 3.2rem;
+      animation: scorePulse 1.2s ease-in-out infinite;
+    }
+    @keyframes scorePulse {
+      0%, 100% { text-shadow: 0 0 14px rgba(242,183,5,0.5); transform: scale(1); }
+      50%       { text-shadow: 0 0 36px rgba(242,183,5,0.88); transform: scale(1.06); }
+    }
+
+    /* 9. Itens do resumo com cores distintas */
+    .resumo-item {
+      background: rgba(255, 255, 255, 0.92);
+      border: 2px solid rgba(46, 91, 147, 0.10);
+    }
+    .resumo-item:nth-child(1) { border-left: 5px solid var(--jw-verde-sucesso); }
+    .resumo-item:nth-child(2) { border-left: 5px solid var(--jw-vermelho-erro); }
+    .resumo-item:nth-child(3) { border-left: 5px solid var(--jw-dourado); }
+
+    /* 10. Pódio — top 3 com cores de medalha, hover lift */
+    .podio-item {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .podio-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .podio-item:nth-child(1) { border-left: 5px solid #FFD700; }
+    .podio-item:nth-child(2) { border-left: 5px solid #C0C0C0; }
+    .podio-item:nth-child(3) { border-left: 5px solid #CD7F32; }
+
+    /* 11. Botões da tela de resultado */
+    #tela-resultado .btn-primary {
+      background: linear-gradient(135deg, #FF6B35 0%, #E63900 100%);
+      box-shadow: 0 8px 24px rgba(230, 57, 0, 0.40);
+      animation: startPulse 2.4s ease-in-out infinite;
+      font-size: 1.1rem;
+    }
+    #tela-resultado .btn-secondary:hover {
+      background: rgba(46, 91, 147, 0.12);
+      color: var(--jw-azul-escuro);
+      transition: background 0.2s ease;
+    }
   </style>
 </head>
 <body>
@@ -2210,6 +2357,7 @@
       if (timerEl) {
         timerEl.textContent = `${tempoRestante}s`;
         timerEl.style.color = (tempoRestante <= 10) ? 'var(--jw-vermelho-erro)' : 'var(--jw-laranja)';
+        timerEl.classList.toggle('timer-urgente', tempoRestante <= 10);
       }
     }
   </script>
