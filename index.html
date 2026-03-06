@@ -255,6 +255,79 @@
       }
     }
 
+    /* ── Faixa WhatsApp ── */
+    .faixa-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(37,211,102,0.35);
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      animation: fadeInUp 0.7s ease-out;
+    }
+    .faixa-whatsapp:active { transform: scale(0.98); }
+
+    .faixa-whatsapp svg {
+      flex-shrink: 0;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .faixa-whatsapp-texto {
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      line-height: 1.3;
+      text-align: left;
+    }
+
+    .faixa-whatsapp-texto small {
+      display: block;
+      font-weight: 600;
+      font-size: 0.78rem;
+      opacity: 0.88;
+      margin-top: 2px;
+    }
+
+    /* ── Faixa Contribuição ── */
+    .faixa-contribuicao {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.22);
+      border-radius: 14px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .faixa-contribuicao-icone {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .faixa-contribuicao-texto {
+      color: rgba(255,255,255,0.92);
+      font-size: 0.82rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .faixa-contribuicao-texto a {
+      color: #FFD700;
+      font-weight: 800;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .faixa-contribuicao-texto a:active { opacity: 0.8; }
+
     @media (max-width: 768px) {
       .card {
         padding: 20px;
@@ -333,6 +406,32 @@
           <div class="loading-spinner">⏳</div>
           <p>Carregando ranking...</p>
         </div>
+      </div>
+    </div>
+
+    <!-- FAIXA WHATSAPP -->
+    <a
+      class="faixa-whatsapp"
+      href="https://wa.me/?text=Joguei%20Cartas%20B%C3%ADblicas%20-%20Desafio%20do%20Ping%C3%A3o%20e%20voc%C3%AA%20tem%20que%20jogar%20tamb%C3%A9m!%20%F0%9F%8E%AE%F0%9F%93%96%0Ahttps%3A%2F%2Fcartasbiblicas.desafiodopingao.com.br%2F"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="24" fill="#25D366"/>
+        <path d="M34.5 13.5C32.1 11.1 28.9 9.7 25.5 9.7C18.6 9.7 13 15.3 13 22.2C13 24.4 13.6 26.6 14.7 28.5L13 35L19.7 33.3C21.5 34.3 23.5 34.9 25.5 34.9C32.4 34.9 38 29.3 38 22.4C38 19 36.9 15.9 34.5 13.5ZM25.5 32.8C23.7 32.8 21.9 32.3 20.4 31.3L20 31.1L16 32.1L17 28.2L16.8 27.8C15.7 26.2 15.1 24.3 15.1 22.2C15.1 16.5 19.8 11.8 25.5 11.8C28.3 11.8 30.9 12.9 32.8 14.8C34.7 16.7 35.9 19.3 35.9 22.1C35.9 27.9 31.2 32.8 25.5 32.8ZM31.1 24.8C30.8 24.6 29.3 23.9 29 23.7C28.7 23.6 28.5 23.5 28.3 23.8C28.1 24.1 27.6 24.7 27.4 24.9C27.3 25.1 27.1 25.1 26.8 25C25.5 24.4 24.6 23.9 23.7 22.4C23.5 22.1 24 22.1 24.5 21.1C24.6 20.9 24.5 20.7 24.5 20.6C24.4 20.4 23.9 18.9 23.7 18.3C23.5 17.7 23.2 17.8 23 17.8H22.5C22.3 17.8 21.9 17.9 21.6 18.2C21.3 18.5 20.6 19.2 20.6 20.7C20.6 22.2 21.6 23.6 21.8 23.8C22 24 23.9 26.9 26.8 28.2C28.8 29.1 29.6 29.1 30.6 29C31.2 28.9 32.5 28.3 32.8 27.5C33.1 26.8 33.1 26.2 33 26C32.9 25.8 32.7 25.8 31.1 24.8Z" fill="white"/>
+      </svg>
+      <div class="faixa-whatsapp-texto">
+        📲 Compartilhe com seus amigos!
+        <small>Clique e envie o jogo pelo WhatsApp</small>
+      </div>
+    </a>
+
+    <!-- FAIXA CONTRIBUIÇÃO -->
+    <div class="faixa-contribuicao">
+      <div class="faixa-contribuicao-icone">💌</div>
+      <div class="faixa-contribuicao-texto">
+        Você pode contribuir para melhorar o jogo! Caso encontre algum erro nas cartas ou no jogo, avise pelo e-mail:
+        <a href="mailto:esdrasjulio@yahoo.com.br?subject=Erro%20no%20jogo%20Cartas%20B%C3%ADblicas">esdrasjulio@yahoo.com.br</a>
       </div>
     </div>
 
